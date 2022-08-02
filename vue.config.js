@@ -1,8 +1,10 @@
 module.exports = {
   css: {
     loaderOptions: {
-      scss: {
-        additionalData: `import "@/sass/main.scss"`,
+      sass: {
+        prependData: `
+            @import "@/assets/sass/main.scss";
+          `,
       },
     },
   },
