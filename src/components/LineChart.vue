@@ -108,14 +108,51 @@ onMounted(async () => {
   state.chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    // NOTE: changing legend colour: thank you: https://stackoverflow.com/questions/67893757/in-chartjs-how-do-i-change-the-color-of-a-label-in-the-legend
+    plugins: {
+      legend: {
+        labels: {
+          color: "gold",
+          font: {
+            size: 16, //NOTE: changing legend font size: https://www.chartjs.org/docs/master/general/fonts.html
+          },
+        },
+      },
+    },
+
+    //NOTE: changing colour of labels: thank you: https://masteringjs.io/tutorials/chartjs/axis-label-color
     scales: {
       x: {
+        title: {
+          display: true,
+          text: "Dates (Times)",
+          color: "gold",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
         ticks: {
           color: "gold",
+          font: {
+            size: 14,
+          },
         },
       },
       y: {
+        title: {
+          display: true,
+          text: "Price in $",
+          color: "gold",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
         ticks: {
+          font: {
+            size: 14,
+          },
           color: "gold",
         },
       },
@@ -132,7 +169,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .chart-wrapper {
   width: 100%;
-  height: 70vh;
+  height: 65vh;
 }
 
 h6 {
