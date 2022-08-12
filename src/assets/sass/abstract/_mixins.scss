@@ -1,0 +1,8 @@
+@mixin primaryBtnStyles($background-colour, $text-colour) {
+  padding: 1.5rem 2.5rem;
+  background-color: $background-colour;
+  color: $text-colour;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}

@@ -5,7 +5,7 @@
         <img :src="image" :alt="coin.coinData.value.name">
       </div>
       <h4>{{ coin.coinData.value.name }}</h4>
-      <p v-html="description"></p>
+      <p v-html="description" class="description"></p>
       <ul class="coin-about__list">
         <li class="coin-about__list__item">
           <span>Rank: </span><span>{{rank}}</span>
@@ -22,7 +22,6 @@
       <LineChart :id="$route.params.id" :coinData="coin.coinData.value" />
     </div>
   </div>
-  <a @click="$router.go(-1)">Back</a>
 </template>
 
 
@@ -103,6 +102,8 @@ const image = computed(() => {
 });
 const description = computed(() => {
   let text = fetchFromObject(coin.coinData.value, "description.en");
+  if (coinID.value === "ethereum") return `${text.toString().split(",")[0]}.`; //NOTE: i do this because ethereum's description is one long run-on sentence
+  return text.toString().substring(0, 500) + "...";
   return `${text.toString().split(".")[0]}.`; // template literals pour ajouter le point a la fin de notre phrase
 });
 const currentPrice = computed(() => {
@@ -134,12 +135,27 @@ h4 {
   font-size: 6rem;
 }
 
-p {
+.description {
   width: 80%;
   text-align: justify;
   font-weight: 400;
   line-height: 1.75;
   letter-spacing: 0.00938em;
+
+  // NOTE: voici les liens dedans le text modifié par v-html. au moment, ce code marche pas
+  a {
+    color: unset;
+
+    &:link,
+    &:visited {
+      color: gold;
+    }
+
+    &:hover,
+    &:active {
+      text-transform: uppercase;
+    }
+  }
 }
 
 ul {

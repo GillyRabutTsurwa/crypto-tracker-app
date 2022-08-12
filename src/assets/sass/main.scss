@@ -1,3 +1,5 @@
+@use "abstract/mixins";
+@use "abstract/variables";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;800&display=swap");
 *,
 *::before,
@@ -12,11 +14,13 @@ html {
 }
 
 body {
+  // @include mixins.quickTings;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: #14161a;
+  background-color: variables.$colour-secondary;
+
   color: "#FFF";
   min-height: 100vh;
   font-size: 1.6rem;

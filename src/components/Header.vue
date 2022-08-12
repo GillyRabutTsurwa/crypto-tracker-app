@@ -4,7 +4,8 @@
       <h2 class="header__content--title">
         <RouterLink to="/">CryptoDex</RouterLink>
       </h2>
-      <nav class="header__content--nav">
+      <!-- NOTE: je vais le remettre apres avoir ajouté leur fonctionalités -->
+      <!-- <nav class="header__content--nav">
         <span class="custom-dropdown">
           <select>
             <option>USD</option>
@@ -12,14 +13,22 @@
           </select>
         </span>
         <a href="#" rel="noopener noreferrer" class="header__content--nav-login">Login</a>
-      </nav>
+      </nav> -->
     </div>
   </header>
-
 </template>
 
 <script setup>
-//NOTE: code coming soon
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+console.log(route.path);
+
+const dynamicMargin = computed(() => {
+  return {
+    noMginBottom: route.path === "/",
+  };
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -87,6 +96,7 @@
   height: 6.5rem;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
   margin-bottom: 4rem;
+  background-color: variables.$colour-primary;
 
   &__content {
     display: flex;
@@ -97,7 +107,7 @@
     margin: 0 auto;
 
     &--title {
-      color: gold;
+      color: variables.$colour-secondary;
 
       a {
         all: unset; //NOTE: Love this piece of code
@@ -109,12 +119,7 @@
       &-login {
         &:link,
         &:visited {
-          padding: 1.5rem 2.5rem;
-          background-color: gold;
-          color: #333;
-          border-radius: 0.5rem;
-          text-decoration: none;
-          text-transform: uppercase;
+          @include mixins.primaryBtnStyles(variables.$colour-primary, variables.$colour-secondary);
         }
         // NOTE: will find out what i want to do with hover/active states
         // &:hover,
@@ -125,5 +130,10 @@
       }
     }
   }
+}
+
+// class dynamique. un nom plus approprié a venir plus tard
+.noMginBottom {
+  margin-bottom: 0;
 }
 </style>
