@@ -1,4 +1,7 @@
 <template>
+  <!-- NOTE: input event est bien transporté de l'enfant au parent (ici) -->
+  <!-- maintenant, me faut que mettre a jour le tableau des monnaies -->
+  <Search @testEvent="logKey($event)" />
   <div class="coins-table">
     <div class="table-titles">
       <p v-for="(currentTitle, index) in state.tableTitles" :key="index">
@@ -6,25 +9,53 @@
       </p>
     </div>
     <div class="coins-list">
-      <Sarafu v-for="currentCoin in store.allCoins" :key="currentCoin.id" :coinData="currentCoin" />
+      <Sarafu v-for="currentCoin in store.coins" :key="currentCoin.id" :coinData="currentCoin" />
+      <!-- <Sarafu v-for="currentCoin in store.filteredCoins" :key="currentCoin.id" :coinData="currentCoin" /> -->
     </div>
   </div>
 </template>
 
 <script setup>
+import Search from "./Search.vue";
 import Sarafu from "./Sarafu.vue";
-import { ref, reactive, toRefs, computed } from "vue";
-// import { useCoinsStore } from "~~/store/coins";
+import { ref, reactive, onMounted, toRef, computed, onUpdated } from "vue";
 import { useCoinsStore } from "../store/coins";
 
 const store = useCoinsStore();
 console.log(store);
+console.log(store);
 
 store.fetchAllCoins();
+console.log(store.allCoins);
 
 const state = reactive({
   tableTitles: ["Coin", "Price", "24h Change", "Market Cap"],
+  // nouvelle donné qui va traquer nos coins par apport à notre "input" au forme
+  coins: [],
+  filteredCoins: [],
 });
+
+const logKey = (evt) => {
+  // store.$patch({
+  //   coins: coins.value.filter((currentCoin) => currentCoin.name.toLowerCase().includes(evt)),
+  // });
+  store.$patch((state) => {
+    state.coins = state.coins.filter((currentCoin) => {
+      // NOTE: form can accept coin name or coin abbreviation
+      const listCriteria = currentCoin.name.toLowerCase().includes(evt) || currentCoin.symbol.toLowerCase().includes(evt);
+      return listCriteria;
+    });
+  });
+  console.log(evt);
+  console.log(store.coins);
+
+  // if (evt === "") return store.allCoins;
+
+  // store.coins = store.coins.filter((currentCoin) => {
+  //   currentCoin.name.toLowerCase().includes(evt);
+  // });
+  console.log(store.coins);
+};
 </script>
 
 <style lang="scss" scoped>
