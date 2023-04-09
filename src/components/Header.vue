@@ -1,23 +1,3 @@
-<template>
-  <header :class="dynamicMargin" class="header">
-    <div class="header__content">
-      <h2 class="header__content--title">
-        <RouterLink to="/">CryptoDex</RouterLink>
-      </h2>
-      <!-- NOTE: je vais le remettre apres avoir ajouté leur fonctionalités -->
-      <!-- <nav class="header__content--nav">
-        <span class="custom-dropdown">
-          <select>
-            <option>USD</option>
-            <option>KSH</option>
-          </select>
-        </span>
-        <a href="#" rel="noopener noreferrer" class="header__content--nav-login">Login</a>
-      </nav> -->
-    </div>
-  </header>
-</template>
-
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
@@ -30,9 +10,33 @@ const dynamicMargin = computed(() => {
   };
 });
 </script>
+      
+<template>
+  <header :class="dynamicMargin" class="header">
+  <div class="header__content">
+      <h2 class="header__content--title">
+        <RouterLink to="/">CryptoDex</RouterLink>
+      </h2>
+      <!-- NOTE: je vais le remettre apres avoir ajouté leur fonctionalités -->
+      <!-- <nav class="header__content--nav">
+          <span class="custom-dropdown">
+            <select>
+              <option>USD</option>
+              <option>KSH</option>
+            </select>
+          </span>
+          <a href="#" rel="noopener noreferrer" class="header__content--nav-login">Login</a>
+        </nav> -->
+    </div>
+  </header>
+</template>
+
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@use "../assets/sass/abstract/mixins" as mixins;
+@use "../assets/sass/abstract/variables" as variables;
+
 .square {
   width: 0.7em;
   height: 0.7em;
@@ -45,7 +49,8 @@ const dynamicMargin = computed(() => {
   position: relative;
   display: inline-block;
   vertical-align: middle;
-  margin: 10px; /* demo only */
+  margin: 10px;
+  /* demo only */
 }
 
 .custom-dropdown select {
@@ -59,7 +64,8 @@ const dynamicMargin = computed(() => {
   border-radius: 3px;
   text-indent: 0.01px;
   text-overflow: "";
-  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+  -webkit-appearance: button;
+  /* hide default arrow in chrome OSX */
 }
 
 .custom-dropdown::before,
@@ -117,10 +123,12 @@ const dynamicMargin = computed(() => {
 
     &--nav {
       &-login {
+
         &:link,
         &:visited {
           @include mixins.primaryBtnStyles(variables.$colour-primary, variables.$colour-secondary);
         }
+
         // NOTE: will find out what i want to do with hover/active states
         // &:hover,
         // &:active {

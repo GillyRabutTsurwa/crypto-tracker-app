@@ -4,28 +4,28 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body {
-  // @include mixins.quickTings;
-  font-family: "Montserrat", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  background-color: variables.$colour-secondary;
+    // @include mixins.quickTings;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    background-color: variables.$colour-secondary;
 
-  color: "#FFF";
-  min-height: 100vh;
-  font-size: 1.6rem;
+    color: "#FFF";
+    min-height: 100vh;
+    font-size: 1.6rem;
 }
 
 h1 {
-  font-size: 7rem;
+    font-size: 7rem;
 }

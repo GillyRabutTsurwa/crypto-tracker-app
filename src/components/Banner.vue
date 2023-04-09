@@ -1,3 +1,11 @@
+<script setup>
+import { reactive, toRefs, computed } from "vue";
+import { useTrendingCoinsStore } from "@/stores/trendingCoins";
+const store = useTrendingCoinsStore();
+store.fetchTrendingCoins();
+console.log(store.allTrendingCoins);
+</script>
+      
 <template>
   <div class="display">
     <h1>CryptoDex</h1>
@@ -9,17 +17,18 @@
           <img :src="currentCoin.image" :alt="currentCoin.id">
           <p>
             <span>
-              {{currentCoin.symbol}}
+              {{ currentCoin.symbol }}
             </span>
             &nbsp;
-            <span>{{currentCoin.price_change_percentage_24h_in_currency > 0 ? "+" : ""}}</span>
-            <span> {{currentCoin.price_change_percentage_24h_in_currency.toFixed(2)}}% </span>
+            <span>{{ currentCoin.price_change_percentage_24h_in_currency > 0 ? "+" : "" }}</span>
+            <span> {{ currentCoin.price_change_percentage_24h_in_currency.toFixed(2) }}% </span>
           </p>
         </div>
       </Vue3Marquee>
     </div>
     <div class="buttons">
-      <a href="https://github.com/GillyRabutTsurwa/crypto-tracker-app" class="buttons__main" target="__blank" noopener noreferrer>
+      <a href="https://github.com/GillyRabutTsurwa/crypto-tracker-app" class="buttons__main" target="__blank" noopener
+        noreferrer>
         <i class="devicon-github-original"></i>
         <span>GitHub</span>
       </a>
@@ -35,19 +44,16 @@
   </div>
 </template>
 
-<script setup>
-import { reactive, toRefs, computed } from "vue";
-import { useTrendingCoinsStore } from "../store/trendingCoins";
-const store = useTrendingCoinsStore();
-store.fetchTrendingCoins();
-console.log(store.allTrendingCoins);
-</script>
 
 <style lang="scss" scoped>
+@use "../assets/sass/abstract/mixins" as mixins;
+@use "../assets/sass/abstract/variables" as variables;
+
 // TESTING
 h1 {
   color: variables.$colour-primary;
 }
+
 img {
   width: 15rem;
   height: 15rem;
@@ -92,9 +98,11 @@ h4 {
   font-size: 30px;
   margin: 0 10px;
 }
+
 .odd {
   color: rgb(68, 77, 84);
 }
+
 .even {
   color: rgb(137, 147, 156);
 }
@@ -106,6 +114,7 @@ h4 {
   width: 30%;
   justify-content: space-evenly;
 }
+
 // TESTING
 .buttons__main {
   @include mixins.primaryBtnStyles(variables.$colour-primary, variables.$colour-secondary);

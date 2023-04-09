@@ -1,25 +1,8 @@
-<template>
-  <!-- NOTE: input event est bien transporté de l'enfant au parent (ici) -->
-  <!-- maintenant, me faut que mettre a jour le tableau des monnaies -->
-  <Search @testEvent="logKey($event)" />
-  <div class="coins-table">
-    <div class="table-titles">
-      <p v-for="(currentTitle, index) in state.tableTitles" :key="index">
-        {{ currentTitle }}
-      </p>
-    </div>
-    <div class="coins-list">
-      <Sarafu v-for="currentCoin in store.coins" :key="currentCoin.id" :coinData="currentCoin" />
-      <!-- <Sarafu v-for="currentCoin in store.filteredCoins" :key="currentCoin.id" :coinData="currentCoin" /> -->
-    </div>
-  </div>
-</template>
-
 <script setup>
 import Search from "./Search.vue";
 import Sarafu from "./Sarafu.vue";
 import { ref, reactive, onMounted, toRef, computed, onUpdated } from "vue";
-import { useCoinsStore } from "../store/coins";
+import { useCoinsStore } from "@/stores/coins";
 
 const store = useCoinsStore();
 console.log(store);
@@ -57,6 +40,24 @@ const logKey = (evt) => {
   console.log(store.coins);
 };
 </script>
+    
+<template>
+  <!-- NOTE: input event est bien transporté de l'enfant au parent (ici) -->
+  <!-- maintenant, me faut que mettre a jour le tableau des monnaies -->
+  <Search @testEvent="logKey($event)" />
+  <div class="coins-table">
+    <div class="table-titles">
+      <p v-for="(currentTitle, index) in state.tableTitles" :key="index">
+        {{ currentTitle }}
+      </p>
+    </div>
+    <div class="coins-list">
+      <Sarafu v-for="currentCoin in store.coins" :key="currentCoin.id" :coinData="currentCoin" />
+      <!-- <Sarafu v-for="currentCoin in store.filteredCoins" :key="currentCoin.id" :coinData="currentCoin" /> -->
+    </div>
+  </div>
+</template>
+
 
 <style lang="scss" scoped>
 .coins-table {
@@ -90,6 +91,7 @@ const logKey = (evt) => {
 
   // row-gap: 4rem;
 }
+
 .coin-selection {
   // display: flex;
   // justify-content: space-around;

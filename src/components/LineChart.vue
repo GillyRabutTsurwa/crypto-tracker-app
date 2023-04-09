@@ -1,17 +1,3 @@
-<template class="test">
-  <div>
-    <Line ref="line" :chart-options="state.chartOptions" :chart-data="state.chartData" :chart-id="chartId" :dataset-id-key="datasetIdKey" :plugins="plugins" :css-classes="cssClasses" :styles="styles" :width="width" :height="height" class="chart-wrapper" />
-    <div class="buttons__chart">
-      <a @click="$router.go(-1)">Back</a>
-      <!-- NOTE: je vais les rajouter une fois que je peux mettre à jour le chart -->
-      <!-- <button @click="fetchDailyData">24 Hours</button> -->
-      <!-- <button @click="fetchMonthlyData">30 Days</button>
-      <button @click="fetchQuarterlyData">3 Months</button>
-      <button @click="fetchAnnualData">1 YEar</button> -->
-    </div>
-  </div>
-</template>
-
 <script setup>
 /**
  * NOTE: this chart component is more or less a composition API code translation of this code here:
@@ -46,7 +32,7 @@ const props = defineProps({
   },
   styles: {
     type: Object,
-    default: () => {},
+    default: () => { },
   },
   plugins: {
     type: Array,
@@ -201,7 +187,27 @@ onMounted(async () => {
 });
 </script>
 
+<template class="test">
+  <div>
+    <Line ref="line" :chart-options="state.chartOptions" :chart-data="state.chartData" :chart-id="chartId"
+      :dataset-id-key="datasetIdKey" :plugins="plugins" :css-classes="cssClasses" :styles="styles" :width="width"
+      :height="height" class="chart-wrapper" />
+    <div class="buttons__chart">
+      <a @click="$router.go(-1)">Back</a>
+      <!-- NOTE: je vais les rajouter une fois que je peux mettre à jour le chart -->
+      <!-- <button @click="fetchDailyData">24 Hours</button> -->
+      <!-- <button @click="fetchMonthlyData">30 Days</button>
+          <button @click="fetchQuarterlyData">3 Months</button>
+          <button @click="fetchAnnualData">1 YEar</button> -->
+    </div>
+  </div>
+</template>
+
+
 <style lang="scss" scoped>
+@use "../assets/sass/abstract/mixins" as mixins;
+@use "../assets/sass/abstract/variables" as variables;
+
 .chart-wrapper {
   width: 100%;
   height: 65vh;
@@ -222,7 +228,8 @@ h6 {
   button {
     border: none;
   }
-  & > * {
+
+  &>* {
     @include mixins.primaryBtnStyles(variables.$colour-primary, variables.$colour-secondary);
     flex-grow: 1;
     flex-shrink: 0;

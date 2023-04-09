@@ -1,26 +1,3 @@
-<template>
-  <RouterLink :to="`/coins/${currentCoin.id}`" class="coin__link">
-    <div class="coins-list__coin">
-      <div class="column-1">
-        <img :src="currentCoin.image" alt="currentCoin.id" class="column-1__img">
-        <div class="column-1__text">
-          <p class="column-1__text--acronym">{{ currentCoin.symbol.toUpperCase() }}</p>
-          <p class="column-1__text--name">{{ currentCoin.name }}</p>
-        </div>
-      </div>
-      <div class="column-2">
-        <span>{{ numberWithCommas(currentCoin.current_price) }}</span>
-      </div>
-      <div class="column-3">
-        <span :class="redOrGreen">{{ currentCoin.price_change_percentage_24h.toFixed(2) }}%</span>
-      </div>
-      <div class="column-4">
-        <span>{{ numberWithCommas(currentCoin.market_cap) }}</span>
-      </div>
-    </div>
-  </RouterLink>
-</template>
-
 <script setup>
 import { computed } from "vue";
 const props = defineProps({
@@ -44,15 +21,41 @@ const redOrGreen = computed(() => {
   };
 });
 </script>
+      
+<template>
+  <RouterLink :to="`/coins/${currentCoin.id}`" class="coin__link">
+    <div class="coins-list__coin">
+      <div class="column-1">
+        <img :src="currentCoin.image" alt="currentCoin.id" class="column-1__img">
+        <div class="column-1__text">
+          <p class="column-1__text--acronym">{{ currentCoin.symbol.toUpperCase() }}</p>
+          <p class="column-1__text--name">{{ currentCoin.name }}</p>
+        </div>
+      </div>
+      <div class="column-2">
+        <span>{{ numberWithCommas(currentCoin.current_price) }}</span>
+      </div>
+      <div class="column-3">
+        <span :class="redOrGreen">{{ currentCoin.price_change_percentage_24h.toFixed(2) }}%</span>
+      </div>
+      <div class="column-4">
+        <span>{{ numberWithCommas(currentCoin.market_cap) }}</span>
+      </div>
+    </div>
+  </RouterLink>
+</template>
+
 
 <style lang="scss" scoped>
 // NOTE: dynamic classes
 .rouge {
   color: rgb(236, 67, 67);
 }
+
 .vert {
   color: rgb(103, 255, 103);
 }
+
 a {
   all: unset; // enelver tout le style de defaut des liens
 }

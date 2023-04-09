@@ -1,32 +1,5 @@
-<template>
-  <div class="coin-page-container">
-    <div class="coin-about">
-      <div class="coin-about__img">
-        <img :src="image" :alt="coin.coinData.value.name">
-      </div>
-      <h4>{{ coin.coinData.value.name }}</h4>
-      <p v-html="description" class="description"></p>
-      <ul class="coin-about__list">
-        <li class="coin-about__list__item">
-          <span>Rank: </span><span>{{rank}}</span>
-        </li>
-        <li class="coin-about__list__item">
-          <span>Current Price: </span>{{currentPrice}}<span></span>
-        </li>
-        <li class="coin-about__list__item">
-          <span>Market Cap: </span>{{marketCap}}<span></span>
-        </li>
-      </ul>
-    </div>
-    <div class="coin-chart">
-      <LineChart :id="$route.params.id" :coinData="coin.coinData.value" />
-    </div>
-  </div>
-</template>
-
-
 <script setup>
-import LineChart from "../../../components/LineChart.vue";
+import LineChart from "@/components/LineChart.vue";
 import { onMounted, reactive, ref, toRefs, computed } from "vue";
 import { useRoute } from "vue-router";
 
@@ -102,9 +75,8 @@ const image = computed(() => {
 });
 const description = computed(() => {
   let text = fetchFromObject(coin.coinData.value, "description.en");
-  if (coinID.value === "ethereum") return `${text.toString().split(",")[0]}.`; //NOTE: i do this because ethereum's description is one long run-on sentence
+  // if (coinID.value === "ethereum") return `${text.toString().split(",")[0]}.`; //NOTE: i do this because ethereum's description is one long run-on sentence
   return text.toString().substring(0, 500) + "...";
-  return `${text.toString().split(".")[0]}.`; // template literals pour ajouter le point a la fin de notre phrase
 });
 const currentPrice = computed(() => {
   return fetchFromObject(coin.coinData.value, "market_data.current_price.usd"); //NOTE: usd sera bientôt dynamique
@@ -116,6 +88,35 @@ const marketCap = computed(() => {
   return fetchFromObject(coin.coinData.value, "market_data.market_cap.usd"); //NOTE; ici aussi, usd sera dynamique
 });
 </script>
+
+<template>
+  <div class="coin-page-container">
+    <div class="coin-about">
+      <div class="coin-about__img">
+        <img :src="image" :alt="coin.coinData.value.name">
+      </div>
+      <h4>{{ coin.coinData.value.name }}</h4>
+      <p v-html="description" class="description"></p>
+      <!-- <p v-html="coin.coinData.description.en" class="description"></p> -->
+      <ul class="coin-about__list">
+        <li class="coin-about__list__item">
+          <span>Rank: </span><span>{{ rank }}</span>
+        </li>
+        <li class="coin-about__list__item">
+          <span>Current Price: </span>{{ currentPrice }}<span></span>
+        </li>
+        <li class="coin-about__list__item">
+          <span>Market Cap: </span>{{ marketCap }}<span></span>
+        </li>
+      </ul>
+    </div>
+    <div class="coin-chart">
+      <LineChart :id="$route.params.id" :coinData="coin.coinData.value" />
+    </div>
+  </div>
+</template>
+
+
 
 <style lang="scss" scoped>
 .coin-page-container {
@@ -133,6 +134,13 @@ img {
 h4 {
   font-weight: bolder;
   font-size: 6rem;
+}
+
+// NEWIMPORTANT: finally learnt how to style the links inside v-html text: 
+:deep(.description a) {
+  color: gold;
+  font-weight: bold;
+  font-style: italic;
 }
 
 .description {

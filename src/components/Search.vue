@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <input @input="test" type="text" id="name" class="form__input" placeholder="Search by Full Name or Acronym" required="" />
-    <label for="name" class="form__label">Full Name</label>
-
-  </div>
-</template>
-
 <script setup>
 /**
  * NOTE: trying out the object syntaxe with defineEmits
@@ -26,7 +18,18 @@ const test = (e) => {
 };
 </script>
 
+<template>
+  <div>
+    <input @input="test" type="text" id="name" class="form__input" placeholder="Search by Full Name or Acronym"
+      required="" />
+    <label for="name" class="form__label">Full Name</label>
+
+  </div>
+</template>
+
 <style lang="scss" scoped>
+@use "@/assets/sass/abstract/variables" as variables;
+
 .form {
   &__input {
     display: block;
@@ -47,13 +50,14 @@ const test = (e) => {
       color: variables.$colour-secondary;
     }
 
-    &:placeholder-shown + .form__label {
+    &:placeholder-shown+.form__label {
       opacity: 0;
       visibility: hidden;
       -webkit-transform: translateY(-4rem);
       transform: translateY(-4rem);
     }
   }
+
   &__label {
     display: block;
     font-size: 1.2rem;
