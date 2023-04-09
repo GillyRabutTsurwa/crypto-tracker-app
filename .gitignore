@@ -29,3 +29,11 @@ coverage
 
 test-results/
 playwright-report/
+
+# Added By Me
+.netlify
+e2e
+public
+package-lock.json
+playwright.config.js
+vitest.config.js
