@@ -18,4 +18,15 @@ export default defineConfig({
             },
         },
     },
+    // NOTE: attempting to fix cors issue using this article: https://rubenr.dev/cors-vite-vue
+    server: {
+        proxy: {
+            "/api": {
+                target: "https://api.coingecko.com",
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/api/, ""),
+            },
+        },
+    },
 });
