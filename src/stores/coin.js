@@ -16,9 +16,13 @@ export const useCoinStore = defineStore("coin", {
             console.log(URL);
 
             try {
-                const response = await fetch(URL);
-                const api_data = await response.json();
-                this.coin = api_data;
+                const response = await axios.get(URL, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                });
+                const { data } = response;
+                this.coin = data;
             } catch (error) {
                 console.log(error);
             }

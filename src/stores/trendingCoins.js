@@ -15,9 +15,13 @@ export const useTrendingCoinsStore = defineStore("trendingCoins", {
             const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`;
 
             try {
-                const response = await fetch(URL);
-                const api_data = await response.json();
-                this.trendingCoins = api_data;
+                const response = await axios.get(URL, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                });
+                const { data } = response;
+                this.trendingCoins = data;
             } catch (error) {
                 console.log(error);
             }
